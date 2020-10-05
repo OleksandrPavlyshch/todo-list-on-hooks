@@ -1,26 +1,63 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import {
+    Container,
+    Button
+} from "@material-ui/core";
+import { TodoProvider } from './context/todoContext';
+import Header from './components/Header/header';
+import Todolist from './components/TodoList/todoList';
+import History from './components/History/history';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+    red,
+} from "@material-ui/core/colors";
+
+
+const theme = createMuiTheme({
+    overrides: {
+        MuiButton: {
+            containedSecondary: {
+                backgroundColor: red[500],
+                fontWeight: 700,
+                "&:hover": {
+                    backgroundColor: red[700],
+                },
+            },
+        },
+        MuiListItem: {
+            button: {
+                "&:hover": {
+                    backgroundColor: red[700],
+                    color: "#fff",
+                },
+            },
+        },
+        MuiIconButton: {
+            edgeEnd: {
+                "&:hover": {
+                    backgroundColor: red[700],
+                    color: "#fff",
+                },
+            },
+        },
+    },
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <TodoProvider>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+                    <Container maxWidth="md">
+                        <History />
+                        <Header />
+                        <Todolist />
+                    </Container>
+                </div>
+            </ThemeProvider>
+        </TodoProvider>
+    );
 }
 
 export default App;
